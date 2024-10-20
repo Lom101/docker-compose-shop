@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/Lom101/Shop.Backend
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/Lom101/Shop.Frontend
