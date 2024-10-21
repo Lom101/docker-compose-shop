@@ -1,7 +1,7 @@
 name: Build and Push Docker Images
 
 on:
-  commit:
+  push:
     branches:
       - main  # или другая ветка, которую вы используете для деплоя
 
