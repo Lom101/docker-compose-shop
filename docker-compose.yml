@@ -30,11 +30,13 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL}  # Передача аргумента на этапе сборки
     container_name: shop_frontend
     ports:
       - "80:80"
     environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL}
+      - REACT_APP_API_URL=${REACT_APP_API_URL}  # Передача переменной окружения в контейнер
     networks:
       - dev
     restart: always
