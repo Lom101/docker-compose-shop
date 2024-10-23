@@ -30,13 +30,19 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      args:
-        REACT_APP_API_URL: ${REACT_APP_API_URL}  # Передача аргумента на этапе сборки
+      args: 
+        # Передача аргументов на этапе сборки
+        REACT_APP_API_URL: ${REACT_APP_API_URL} 
+        REACT_APP_STRIPE_PUBLIC_KEY: ${REACT_APP_STRIPE_PUBLIC_KEY}
+        REACT_APP_YANDEX_API_KEY: ${REACT_APP_YANDEX_API_KEY}
     container_name: shop_frontend
     ports:
       - "80:80"
     environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL}  # Передача переменной окружения в контейнер
+	    # Передача переменных окружения в контейнер(необязательно так как на этапе сборки уже переданы)
+      - REACT_APP_API_URL=${REACT_APP_API_URL}  
+      - REACT_APP_STRIPE_PUBLIC_KEY=${REACT_APP_STRIPE_PUBLIC_KEY}
+      - REACT_APP_YANDEX_API_KEY=${REACT_APP_YANDEX_API_KEY}
     networks:
       - dev
     restart: always
