@@ -1,5 +1,4 @@
 services:
-
   web-api:
     build:
       context: ./backend
@@ -8,8 +7,19 @@ services:
     ports:
       - "5000:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=db;Port=5432;Database=Shop;Username=postgres;Password=12345
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ConnectionStrings__DefaultConnection=${ConnectionStrings__DefaultConnection}
+      - Logging__LogLevel__Default=${Logging__LogLevel__Default}
+      - Logging__LogLevel__Microsoft_AspNetCore=${Logging__LogLevel__Microsoft_AspNetCore}
+      - AllowedHosts=${AllowedHosts}
+      - JwtConfig__Secret=${JwtConfig__Secret}
+      - Stripe__SecretKey=${Stripe__SecretKey}
+      - Stripe__PublishableKey=${Stripe__PublishableKey}
+      - SmtpServerSettings__SmtpServer=${SmtpServerSettings__SmtpServer}
+      - SmtpServerSettings__Port=${SmtpServerSettings__Port}
+      - SmtpServerSettings__Username=${SmtpServerSettings__Username}
+      - SmtpServerSettings__Password=${SmtpServerSettings__Password}
+      - SmtpServerSettings__EnableSsl=${SmtpServerSettings__EnableSsl}
     depends_on:
       - db
     networks:
@@ -17,25 +27,25 @@ services:
     restart: always
 
   frontend:
-      build:
-        context: ./frontend
-        dockerfile: Dockerfile
-      container_name: shop_frontend
-      ports:
-        - "80:80"
-      environment:
-        - REACT_APP_API_URL=http://web-api:5000
-      networks:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: shop_frontend
+    ports:
+      - "80:80"
+    environment:
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+    networks:
       - dev
-      restart: always
+    restart: always
 
   db:
     image: postgres:latest
     container_name: shop_db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345
-      POSTGRES_DB: Shop
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
     volumes:
